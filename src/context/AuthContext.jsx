@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../supabase';
-import { SignIn } from '@supabase/auth-ui-react';
 import PropTypes from 'prop-types'
 
 
@@ -9,13 +8,13 @@ const AuthContext = createContext({});
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (context) {
+    if (!context) {
         throw new Error('useAuth must be used within an authProvider',)
     }
     return context;
 }
 
-export function authProvider(children) {
+export function AuthProvider(children) {
     const [user, setUser] = useState(null);
     const [loading, setloading] = useState(true);
 
@@ -57,7 +56,7 @@ export function authProvider(children) {
 }
 
 //กำหนด proptype
-authProvider.propTypes = {
+AuthProvider.propTypes = {
     children: PropTypes.node.isRequired
 }
 
